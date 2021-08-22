@@ -18,11 +18,14 @@ LOCAL_APPS = [
     "accounts.apps.AccountsConfig",
     "memberships.apps.MembershipsConfig",
     "instructors.apps.InstructorsConfig",
+    "courses.apps.CoursesConfig",
 ]
 
 THIRDPARTY_APPS = [
     "crispy_forms",
     "imagekit",
+    "ckeditor",
+    "ckeditor_uploader",
     "django.contrib.humanize",
     "django.contrib.sitemaps",
 ]
@@ -130,8 +133,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ##  LOGIN CONFIGURATION ##
 ####################################
 
-# LOGIN_REDIRECT_URL = 'memberships:dashboard'
-# LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = "memberships:dashboard"
+LOGIN_URL = "login"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
@@ -141,3 +144,125 @@ SITE_ID = 1
 ###########################################
 
 MESSAGE_TAGS = {messages.ERROR: "danger"}
+
+
+####################################
+##  CKEDITOR CONFIGURATION ##
+####################################
+
+CKEDITOR_UPLOAD_PATH = "ck_uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        "height": 300,
+        "width": 300,
+        "toolbar_rostockerlabs": [
+            {
+                "name": "document",
+                "items": [
+                    "Source",
+                    "-",
+                    "Save",
+                    "NewPage",
+                    "Preview",
+                    "Print",
+                    "-",
+                    "Templates",
+                ],
+            },
+            {
+                "name": "clipboard",
+                "items": [
+                    "Cut",
+                    "Copy",
+                    "Paste",
+                    "PasteText",
+                    "PasteFromWord",
+                    "-",
+                    "Undo",
+                    "Redo",
+                ],
+            },
+            {"name": "editing", "items": ["Find", "Replace", "-", "SelectAll"]},
+            {
+                "name": "forms",
+                "items": [
+                    "Form",
+                    "Checkbox",
+                    "Radio",
+                    "TextField",
+                    "Textarea",
+                    "Select",
+                    "Button",
+                    "ImageButton",
+                    "HiddenField",
+                ],
+            },
+            "/",
+            {
+                "name": "basicstyles",
+                "items": [
+                    "Bold",
+                    "Italic",
+                    "Underline",
+                    "Strike",
+                    "Subscript",
+                    "Superscript",
+                    "-",
+                    "RemoveFormat",
+                ],
+            },
+            {
+                "name": "paragraph",
+                "items": [
+                    "NumberedList",
+                    "BulletedList",
+                    "-",
+                    "Outdent",
+                    "Indent",
+                    "-",
+                    "Blockquote",
+                    "CreateDiv",
+                    "-",
+                    "JustifyLeft",
+                    "JustifyCenter",
+                    "JustifyRight",
+                    "JustifyBlock",
+                    "-",
+                    "BidiLtr",
+                    "BidiRtl",
+                    "Language",
+                ],
+            },
+            {"name": "links", "items": ["Link", "Unlink", "Anchor"]},
+            {
+                "name": "insert",
+                "items": [
+                    "Image",
+                    "Flash",
+                    "Table",
+                    "HorizontalRule",
+                    "Smiley",
+                    "SpecialChar",
+                    "PageBreak",
+                    "Iframe",
+                ],
+            },
+            "/",
+            {"name": "styles", "items": ["Styles", "Format", "Font", "FontSize"]},
+            {"name": "colors", "items": ["TextColor", "BGColor"]},
+            {"name": "tools", "items": ["Maximize", "ShowBlocks"]},
+            {"name": "about", "items": ["About"]},
+            "/",  # put this to force next toolbar on new line
+            {
+                "name": "yourcustomtools",
+                "items": [
+                    # put the name of your editor.ui.addButton here
+                    "Preview",
+                    "Maximize",
+                ],
+            },
+        ],
+    },
+}

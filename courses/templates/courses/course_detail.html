@@ -1,0 +1,296 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load user_review %}
+{% load humanize %}
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper">
+<!--================ Start Course Details Area =================-->
+    <section id="bc" class="bc"><!-- Breadcrumb -->
+        <div class="container">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                <a href="{% url 'home'%}">
+                    <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                <a href="{% url 'courses:courselist'%}">
+                    <i class="far fa-sticky-note"></i> Courses</a>
+                </li>
+                <li class="breadcrumb-item active"> {{ course.title }}</li>
+            </ol>
+            </nav>
+        </div>
+    </section><!-- /Breadcrumb -->
+    <section class="course__details section__gap"><!-- course__details -->
+        <div class="container">
+            <div class="row">
+                <div class="alert__section">
+                    {% include "partials/_alerts.html" %}
+                </div>
+                <div class="col-lg-8 course__details--left"><!-- course__details--left -->
+                    {% if course %}
+                        {% if course.thumbnail %}
+                            <div class="main_image">
+                                <img class="img-fluid" src="{{ course.thumbnail.url }}" alt="">
+                            </div>
+                        {% endif %}
+                        <div class="course-like">
+                            <div id="like-section">
+                                {% include "courses/course_like.html" %}
+                            </div>
+                        </div>
+                        <div class="course_wrapper">
+                            {% if course.description %}
+                                <h4 class="title">Objectives</h4>
+                                <div class="content">
+                                    {{ course.description|safe}}
+                                </div>
+                            {% endif %}
+                            {% if course.extra_info %}
+                                <h4 class="title">Eligibility</h4>
+                                <div class="content">
+                                    {{ course.extra_info}}
+                                </div>
+                            {% endif %}
+                            <h4 class="title">Course Outline</h4>
+                            {% for course_type in course.allowed_membership.all  %}
+                                {% ifnotequal course_type|stringformat:"s" "Free" %}
+                                    <div class="content">
+                                        {% for lesson in course.lessons.all  %}
+                                            <ul class="lesson-list">
+                                                <li class="justify-content-between d-flex">
+                                                    <p>{{ lesson.title }}</p>
+                                                    <a class="lesson__dtl--btn text-uppercase" href="{{ lesson.get_absolute_url }}">Details</a>
+                                                </li>
+                                            </ul>
+                                        {% endfor %}
+                                    </div>
+                                {% endifnotequal %}
+                                {% ifequal course_type|stringformat:"s" "Free" %}
+                                <p>You are not eligible to see detail.</p>
+                                {% endifequal %}
+                            {% endfor %}
+
+                        </div>
+                    {% else %}
+                        <p>No COurses</p>
+                    {% endif %}
+                </div><!-- /.course__details--left -->
+                <div class="col-lg-4 course__details--right"><!-- course__details--right -->
+                    <ul>
+                        <li>
+                            {% comment %} <a class="justify-content-between d-flex" href="#"> {% endcomment %}
+                            <div class="instructors-list">
+                                <p>Instructor’s</p>
+                                {% for instructor in course.instructors.all %}
+                                    <div class="instructor-item d-flex flex-row align-items-center justify-content-start">
+                                        <div class="instructor-item__image"><img src="{{ instructor.pro_pic.url }}" alt=""></div>
+                                        <div class="instructor-item__name"><a href="{{ instructor.get_absolute_url }}">{{ instructor.username }}</a> {% if not forloop.last %}, {% endif %}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </li>
+                        <li>
+                            <a class="justify-content-between d-flex" href="#">
+                                <p>Course Type </p>
+                                <span>{% for membership in course.allowed_membership.all %}
+                                    {{ membership}}
+                                {% endfor %}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="justify-content-between d-flex" href="#">
+                                <p>Available Seats </p>
+                                <span>15</span>
+                            </a>
+                        </li>
+                    </ul>
+                    {% for course_type in course.allowed_membership.all  %}
+                        {% ifnotequal course_type|stringformat:"s" "Free" %}
+                            <div class="enroll__course">
+                                <a class="btn subscribe__btn btn-block" href="{% url 'memberships:select' %}">Enroll</a>
+                            </div>
+                        {% endifnotequal %}
+                    {% endfor %}
+                    <h4 class="title">Reviews</h4>
+                    <div class="content">
+                        <div class="review-top row pt-40">
+                            <div class="col-lg-12">
+                                <h6 class="mb-15"></h6>
+                                {% ifnotequal course.review_average.rev_avg None %}
+                                        
+                                    <div class="d-flex flex-row reviews justify-content-between">
+                                        <span>Quality</span>
+                                        <div class="star">
+                                            {% ifequal course.review_average.rev_avg 1.0 %}
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            {% endifequal %}
+                                            {% ifequal course.review_average.rev_avg 2.0 %}
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            {% endifequal %}
+                                            {% ifequal course.review_average.rev_avg 3.0 %}
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            {% endifequal %}
+                                            {% ifequal course.review_average.rev_avg 4.0 %}
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star"></i>
+                                            {% endifequal %}
+                                            {% ifequal course.review_average.rev_avg 5.0 %}
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                            {% endifequal %}
+                                        </div>
+                                    </div>
+                                {% endifnotequal %}
+                            </div>
+                        </div>
+                        <div class="comments-area mb-30">
+                            {% if request.user|get_user_review:course.slug %}
+                                {% with own_review=request.user|get_user_review:course.slug %}
+                                    <div class="comment-list">
+                                        <div class="single-comment single-reviews justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex">
+                                                <div class="desc">
+                                                    <h5>You Reviewed on {{own_review.pub_date|date}}</h5>
+                                                        <div class="star">
+                                                            {% if own_review.rating is 1 %}
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            {% elif own_review.rating is 2 %}
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            {% elif own_review.rating is 3 %}
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            {% elif own_review.rating is 4 %}
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star"></span>
+                                                            {% else %}
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                                <span class="fa fa-star checked"></span>
+                                                            {% endif %}
+                                                            
+                                                        </div>
+                                                        <hr>
+                                                    <p class="comment">
+                                                        {{ own_review.comment|safe }}
+                                                    </p>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endwith %}
+                            {% else %}
+                                <div class="feedeback">
+                                    <h6>Feedback</h6>
+                                    <form action="{% url 'courses:add-review' course.slug%}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            {{ form|crispy }}
+                                        </div>
+                                        <input type="submit" value="Submit" class="btn btn-secondary btn-block">
+                                    </form>
+                                </div>
+                            {%endif%}
+                            {% for review in course.reviews %}
+                                <div class="comment-list">
+                                    <div class="single-comment single-reviews justify-content-between d-flex">
+                                        <div class="user__comment justify-content-between d-flex">
+                                            <div class="thumb__section">
+                                                <div class="thumb">
+                                                    <img src="{{ review.user.profile.profile_pic.url }}" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="desc">
+                                                <h5><a href="#">{{review.user.username}}</a>
+                                                    <div class="star">
+                                                        {% if review.rating is 1 %}
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        {% elif review.rating is 2 %}
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        {% elif review.rating is 3 %}
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        {% elif review.rating is 4 %}
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        {% else %}
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                        {% endif %}
+                                                        
+                                                    </div>
+                                                </h5>
+                                                <p class="comment">
+                                                    {{ review.comment|safe }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                </div><!-- /.course__details--right -->
+            </div>
+        </div>
+    </section><!-- /course__details -->
+<!--================ End Course Details Area =================-->
+</div>
+<!-- ##### Content End ##### -->
+{% endblock content %}

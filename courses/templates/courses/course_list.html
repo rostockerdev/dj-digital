@@ -1,0 +1,154 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load background_image_tags %}
+{% load user_review %}
+{% load humanize %}
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper">
+    <section id="bc" class="bc"><!-- Breadcrumb -->
+        <div class="container">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                <a href="{% url 'home'%}">
+                    <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active"><i class="far fa-sticky-note"></i> Courses</li>
+            </ol>
+            </nav>
+        </div>
+    </section><!-- Breadcrumb -->
+    
+    <!-- ##### Top Popular Courses Area Start ##### -->
+    <div class="top-popular-courses-area section__gap">
+        <div class="container">
+            <div class="row">
+                {% if messages %}
+                <div class="alert__section">
+                    {% include "partials/_alerts.html" %}
+                </div>
+                {% endif %}
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <div class="section__heading__wrapper">
+                        {% comment %} <span>The Best</span>  text-center mx-auto wow fadeInUp" data-wow-delay="300ms{% endcomment %}
+                            <h2 class="section__heading__title">Popular Courses</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <!-- Single Top Popular Course Start-->
+                {% for course in courses  %}
+                <div class="col-12 col-lg-6">
+                    <div class="popular-course d-flex align-items-center flex-wrap mb-30 wow fadeInUp" data-wow-delay="400ms" style="visibility: visible; animation-delay: 400ms; animation-name: fadeInUp;">
+                        <div class="popular-course__content">
+                            <span class="course__mark">
+                                {% for membership in course.allowed_membership.all %}
+                                    {{ membership}}
+                                {% endfor %}
+                            </span>
+                            <h5>{{ course.title }}</h5>
+                            <span>By: {% for instructor in course.instructors.all %}
+                                        {{ instructor.first_name }} {% if not forloop.last %},{% endif %}
+                                    {% endfor %}   |  {{course.start_date|date:'d-m-Y'}}</span>
+                            <div class="course-ratings">
+                                {% if course.review_average %}
+                                <div class="d-flex flex-row reviews justify-content-between">
+                                    <div class="star">
+                                        {% ifequal course.review_average.rev_avg None %}
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        {% endifequal %}
+                                        {% ifequal course.review_average.rev_avg 1.0 %}
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        {% endifequal %}
+                                        {% ifequal course.review_average.rev_avg 2.0 %}
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        {% endifequal %}
+                                        {% ifequal course.review_average.rev_avg 3.0 %}
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        {% endifequal %}
+                                        {% ifequal course.review_average.rev_avg 4.0 %}
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star"></i>
+                                        {% endifequal %}
+                                        {% ifequal course.review_average.rev_avg 5.0 %}
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                            <i class="fa fa-star checked"></i>
+                                        {% endifequal %}
+                                        </div>
+                                </div>
+                            {% endif %}
+                            </div>
+                            <p>{{ course.description|safe|truncatewords:7 }}</p>
+                            <a href="{{course.get_absolute_url }}" class="btn course-btn btn-sm">See More</a>
+                        </div>
+                        <div class="popular-course__thumb bg-img"  style="background-image: url(/media/{{course.thumbnail}});">
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- Single Top Popular Course End -->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {% if courses.has_other_pages%}
+                        <div class="pagination__wrapper">
+                            <ul class="pagination">
+                                {% if courses.has_previous %}
+                                    <li class="page-item">
+                                    <a class="page-link" href="?page={{ courses.previous_page_number }}">&laquo;</a>
+                                    </li>
+                                {% endif %}
+                                {% for num in courses.paginator.page_range %}
+                                    {% if num == courses.number %}
+                                        <li class="page-item active">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% elif num > courses.number|add:'-3' and num < courses.number|add:'3' %}
+                                        <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if courses.has_next %}
+                                    <li class="page-item">
+                                    <a class="page-link" href="?page={{ courses.next_page_number }}">&raquo;</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!-- ##### Top Popular Courses Area End ##### -->
+</div>
+<!-- ##### Content Start ##### -->
+{% endblock content %}

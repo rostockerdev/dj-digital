@@ -1,0 +1,209 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load user_review %}
+{% load humanize %}
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper">
+<!--================ Start Course Details Area =================-->
+    <section id="bc" class="bc"><!-- Breadcrumb -->
+        <div class="container">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                <a href="{% url 'home'%}">
+                    <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                <a href="{% url 'courses:courselist'%}">
+                    <i class="fas fa-sticky-note"></i> Courses</a>
+                </li>
+                <li class="breadcrumb-item">
+                <a href="{% url 'courses:course-detail' course.slug %}">
+                    <i class="fas fa-sticky-note"></i> {{ course.title }}</a>
+                </li>
+                <li class="breadcrumb-item active"> {{ lesson.title }}</li>
+            </ol>
+            </nav>
+        </div>
+    </section><!-- /Breadcrumb -->
+    <section class="lesson__details section__gap"><!-- lesson__details -->
+        <div class="container">
+            <div class="row">
+                <div class="alert__section">
+                    {% include "partials/_alerts.html" %}
+                </div>
+                <div class="col-lg-8 lesson__details--left"><!-- lesson__details--left -->
+                    {% if lesson %}
+                        {% if lesson.thumbnail %}
+                            <div class="main_image">
+                                <img class="img-fluid" src="{{ lesson.thumbnail.url }}" alt="">
+                            </div>
+                        {% endif %}
+                        {% comment %} <video controls
+                            controlsList="nodownload"
+                            poster="{{ lesson.thumbnail.url }}"
+                            src="/static{{ lesson.video_link }}"
+                            width="300"
+                            height="200">
+                            Sorry, your browser doesn't support embedded videos.
+                        </video> {% endcomment %}
+                        
+                        <div class="course_wrapper"><!-- course_wrapper -->
+                            {% if lesson.description %}
+                                <h4 class="title">Objectives</h4>
+                                <div class="content">
+                                    {{ lesson.description|safe}}
+                                </div>
+                            {% endif %}
+                            {% if lesson.extra_info %}
+                                <h4 class="title">Eligibility</h4>
+                                <div class="content">
+                                    {{ lesson.extra_info}}
+                                </div>
+                            {% endif %}
+                            <h4 class="title">Lesson Outline</h4>
+                            <div class="content">
+                                {% for course_type in course.allowed_membership.all  %}
+                                
+                                    <div class="curriculum__items"><!-- curriculum__items -->
+                                        {% if lesson.file_1 %}
+                                        <div class="curriculum__item">
+                                            <div class="curriculum__header d-flex flex-row align-items-start justify-content-start">
+                                                <div class="curriculum__title">Week 1-2</div>
+                                                <div class="curriculum__num ml-auto">0/4</div>
+                                            </div>
+                                            <div class="curriculum__body">
+                                                <div class="curriculum__body__title">Beginners Level</div>
+                                                <div class="curriculum__body__text">
+                                                    <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed commodo nisi lectus id ipsum.</p>
+                                                </div>
+                                                <div class="curriculum__content">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="fa fa-folder" aria-hidden="true"></i><span>1 video and documents</span>
+                                                            <ul>
+                                                                <li class="d-flex flex-row align-items-center justify-content-start">
+                                                                    <i class="fa fa-file" aria-hidden="true"></i><span>Reading: <a href="{{ lesson.file_1}}" {% ifnotequal course_type|stringformat:"s" "Free" %} download {% endifnotequal %}>{{ lesson.file_1}}</a></span>
+                                                                    <div class="curriculum__time ml-auto"><i class="fa fa-clock-o" aria-hidden="true"></i><span>15 minutes</span></div>
+                                                                </li>
+                                                                {% if lesson.file_2 %}
+                                                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                                                        <i class="fa fa-file" aria-hidden="true"></i><span>Reading: <a href="{{ lesson.file_2}}" {% ifnotequal course_type|stringformat:"s" "Free" %} download {% endifnotequal %}>{{ lesson.file_2}}</a></span>
+                                                                        <div class="curriculum__time ml-auto"><i class="fa fa-clock-o" aria-hidden="true"></i><span>15 minutes</span></div>
+                                                                    </li>
+                                                                {% endif %}
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% if lesson.file_3 %}
+                                        <div class="curriculum__item">
+                                            <div class="curriculum__header d-flex flex-row align-items-start justify-content-start">
+                                                <div class="curriculum__title">Week 3-4</div>
+                                                <div class="curriculum__num ml-auto">0/5</div>
+                                            </div>
+                                            <div class="curriculum__body">
+                                                <div class="curriculum__body__title">Intermediate Level</div>
+                                                <div class="curriculum__body__text">
+                                                    <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed commodo nisi lectus id ipsum.</p>
+                                                </div>
+                                                <div class="curriculum__content">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="fa fa-folder" aria-hidden="true"></i><span>1 video and documents</span>
+                                                            <ul>
+                                                                {% if lesson.file_3 %}
+                                                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                                                        <i class="fa fa-file" aria-hidden="true"></i><span>Reading: <a href="{{ lesson.file_3}}" {% ifnotequal course_type|stringformat:"s" "Free" %} download {% endifnotequal %}>{{ lesson.file_3}}</a></span>
+                                                                        <div class="curriculum__time ml-auto"><i class="fa fa-clock-o" aria-hidden="true"></i><span>15 minutes</span></div>
+                                                                    </li>
+                                                                {% endif %}
+                                                                {% if lesson.file_4 %}
+                                                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                                                        <i class="fa fa-file" aria-hidden="true"></i><span>Reading: <a href="{{ lesson.file_4}}" {% ifnotequal course_type|stringformat:"s" "Free" %} download {% endifnotequal %}>{{ lesson.file_4}}</a></span>
+                                                                        <div class="curriculum__time ml-auto"><i class="fa fa-clock-o" aria-hidden="true"></i><span>15 minutes</span></div>
+                                                                    </li>
+                                                                {% endif %}
+                                                                {% if lesson.file_5 %}
+                                                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                                                        <i class="fa fa-file" aria-hidden="true"></i><span>Reading: <a href="{{ lesson.file_5}}" {% ifnotequal course_type|stringformat:"s" "Free" %} download {% endifnotequal %}>{{ lesson.file_5}}</a></span>
+                                                                        <div class="curriculum__time ml-auto"><i class="fa fa-clock-o" aria-hidden="true"></i><span>15 minutes</span></div>
+                                                                    </li>
+                                                                {% endif %}
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div><!-- /.curriculum__items -->
+                                
+                                {% ifequal course_type|stringformat:"s" "Free" %}
+                                    <p>You are not allowed</p>
+                                {% endifequal %}
+                                {% endfor %}
+                            </div>
+                            
+                        </div><!-- /.course_wrapper -->
+                        {% for course_type in course.allowed_membership.all  %}
+                            {% ifequal course_type|stringformat:"s" "Enterprise" %}
+                                <div class="quiz__section"><!-- .quiz__section -->
+                                    <h4 class="title">Quiz</h4>
+                                    <div class="quiz__link">
+                                        <i class="fas fa-hand-point-right"></i><a href="{% url 'courses:quiz' course.slug lesson.slug %}">Participate Quiz</a>
+                                    </div>
+                                </div><!-- /.quiz__section -->
+                            {% endifequal %}
+                        {% endfor %}
+                    {% else %}
+                        <p>No Lessons</p>
+                    {% endif %}
+                </div><!-- lesson__details--left -->
+                <div class="col-lg-4 lesson__details--right"><!-- lesson__details--right -->
+                    <h4 class="title">Reviews</h4>
+                    <div class="content">
+                        <div class="comments-area mb-30">
+                            {% for comment in lesson.comments %}
+                                <div class="comment-list">
+                                    <div class="single-comment single-reviews justify-content-between d-flex">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="commentor__image">
+                                                <img src="{{ comment.author.profile.profile_pic.url }}" alt="">
+                                            </div>
+                                            
+                                            <div class="comment__content">
+                                                <h4 class="comment__author">{{comment.author.username}}</h4>
+                                                <h5 class="comment__date">{{ comment.comment_at }}</h5>
+                                                <p class="comment__comment">
+                                                    {{ comment.msg|safe }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                                <div class="feedeback">
+                                <h6>Your Feedback</h6>
+                                <form action="{% url 'courses:add-comment' course.slug lesson.slug %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        {{ form|crispy }}
+                                    </div>
+                                    <input type="submit" value="Submit" class="btn btn-secondary btn-block">
+                                </form>
+                            </div>
+                        </div>  
+                    </div>
+                </div><!-- lesson__details--right -->
+            </div>
+        </div>
+    </section><!-- /.lesson__details -->
+<!--================ End Course Details Area =================-->
+</div>
+{% endblock content %}
