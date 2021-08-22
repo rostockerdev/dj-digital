@@ -1,0 +1,30 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% comment %} <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/error.css' %}"> {% endcomment %}
+    {% comment %} {% if errorpagetitle %}
+        <title>RostockerLabs Digital Service ◘-◘- {{ errorpagetitle }}</title>
+    {% else %}
+        <title>RostockerLabs Digital Service ◘-◘</title>
+    {% endif %} {% endcomment %}
+    {% comment %} <link rel="shortcut icon"  href="{% static 'favicon/favicon.ico' %}"/> {% endcomment %}
+</head>
+<body>
+    <div class="errorpage">
+        {% block errorcontent %}
+        
+        {% endblock %}
+    </div>
+</body>
+</html>

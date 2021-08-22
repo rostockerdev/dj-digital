@@ -14,6 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ###########################################
 LOCAL_APPS = [
     "pages.apps.PagesConfig",
+    "errors.apps.ErrorsConfig",
 ]
 
 THIRDPARTY_APPS = [

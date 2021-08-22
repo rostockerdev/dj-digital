@@ -1,0 +1,44 @@
+{% load staticfiles %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/error.css' %}">
+    
+    <title>RostockerLabs Digital Service ◘-◘-</title>
+    
+    <link rel="shortcut icon"  href="{% static 'favicon/favicon.ico' %}"/>
+</head>
+<body>
+    <div class="errorpage">
+        <div class="error__wrapper">
+            <div class="error__section">
+                <h1 class="error__text">RostockerLabs Digital Services</h1>
+                <h2 class="error__msg">500</h2>
+                <div class="dev__msg">
+                    <p>Oh no, you've found our Junior Developers homepage!</p>
+                    <p>Despite sleeping on the couch most of the day, he still finds time to do
+                    some coding.</p>
+                </div>
+                <b class="red__line"></b>
+                <p class="proper__link">
+                    click here :<a href="https://djdigitalhub.xyz">www.djdigitalhub.xyz</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% comment %} {% extends "base/base.html" %}
+{% block content %}
+<h2>404</h2>
+{% endblock content %} {% endcomment %}
