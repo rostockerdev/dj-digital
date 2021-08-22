@@ -1,0 +1,62 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- Bootstrap CSS -->
+    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% endcomment %}
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% block extracss %}
+    
+    {% endblock extracss %}
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"> {% endcomment %}
+    {% if title %}
+        <title>RostockerLabs - Digital Services | {{ title }}</title>
+    {% else %}
+        <title>RostockerLabs - Digital Services</title>
+    {% endif %}
+    <link rel="shortcut icon"  href="{% static 'favicon/favicon.ico' %}"/>
+</head>
+<body>
+    <!-- ##### Preloader ##### -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+    </div>
+    <!-- ##### Preloader ##### -->
+    <div id="page-container">
+        <!-- ##### Header Area Start ##### -->
+            <header class="header-area">
+                {% comment %} {% include "partials/_topbar.html" %}
+                {% include "partials/_navbar.html" %} {% endcomment %}
+            </header>
+            <!-- ##### Header Area End ##### -->
+        <div id="content-wrap">    
+            {% block content %}
+            
+            {% endblock %}
+        </div>
+        <!-- Subscription -->
+        <div class="subscription-area">
+            {% comment %} {% include "partials/_subscription.html" %} {% endcomment %}
+        </div>
+        <!-- Subscription -->
+        <!-- Footer -->
+        {% include "partials/_footer.html" %}
+        <!-- Footer -->
+    </div>
+    <!-- Scripts -->
+    {% include "partials/_scripts.html" %}
+    <!-- Scripts -->
+</body>
+</html>

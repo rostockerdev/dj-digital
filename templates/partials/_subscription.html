@@ -1,0 +1,15 @@
+<div class="subscription-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="subscription-content">
+                    <form action="{% url 'subscriptions:subscribe' %}" method="post">
+                        {% csrf_token %}
+                            <input type="email" name="email" class="subscribe-email" autocomplete="off" placeholder="Your Email Please" required>
+                        <input type="submit" value="Subscribe" class="btn subscribe-btn btn-sm">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

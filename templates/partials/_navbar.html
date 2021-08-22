@@ -1,0 +1,89 @@
+{% load static %}
+
+<!-- Sticky Header Area Start-->
+<div class="header-sticky">
+    <div class="header-sticky-container">
+        <div class="container">
+            <div class="header-sticky-wrapper justify-content-between">
+                <!-- Site Branding Start -->
+                <div class="site-branding">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'img/logo/logo.png'%}" class="logo" alt="RostockerLabs">
+                    </a>
+                </div>
+                <!-- Site Branding End -->
+                <!-- Menu -->
+                <div class="main_menu">
+                    <div class="main_menu-wrapper">
+                        <div class="main_menu-container">
+                            <nav class="navbar navbar-expand-lg navbar-light">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <!-- Menu -->
+                                <div class="mainnav collapse navbar-collapse " role="navigation" id="navbarNavAltMarkup">
+
+                                        <ul class="nav navbar-nav menu_nav ml-auto">
+                                            {% if user.is_authenticated %}
+                                            {% if notification_count is not 0 %}
+                                            <li {% if 'notifications' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
+                                                <a class="nav-link" href="{% url 'notifications:notifications' %}">
+                                                <i class="fas fa-bell"></i><sup>{{ notification_count }}</sup></a>
+                                            </li>
+                                            {% endif %}
+                                            <li {% if 'dashboard' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
+                                                <a class="nav-link" href="{% url 'memberships:dashboard' %}">
+                                                <i class="fas fa-user-plus"></i> Dashboard </a>
+                                            </li>
+                                            <li {% if 'courses' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
+                                                <a class="nav-link" href="{% url 'courses:courselist' %}">
+                                                <i class="far fa-sticky-note"></i>
+                                                Courses</a>
+                                            </li>
+                                            <li {% if 'instructors' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
+                                                <a class="nav-link" href="{% url 'instructors:instructor-list' %}">
+                                                <i class="fas fa-chalkboard-teacher"></i>
+                                                Instructors</a>
+                                            </li>
+                                            <li class="nav-item mr-3" >
+                                                <a class="nav-link" href="{% url 'logout' %}">
+                                                <i class="fas fa-sign-in-alt"></i>
+                                                Logout</a>
+                                            </li>
+                                            {% else %}
+                                            <li {% if 'courses' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
+                                                <a class="nav-link" href="{% url 'courses:courselist' %}">
+                                                <i class="far fa-sticky-note"></i>
+                                                Courses</a>
+                                            </li>
+                                            <li {% if 'instructors' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
+                                                <a class="nav-link" href="{% url 'instructors:instructor-list' %}">
+                                                <i class="fas fa-chalkboard-teacher"></i>
+                                                Instructors</a>
+                                            </li>
+                                            <li {% if 'register' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
+                                                <a class="nav-link" href="{% url 'register' %}">
+                                                <i class="fas fa-user-plus"></i> Register</a>
+                                            </li>
+                                            <li {% if 'login' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
+                                                <a class="nav-link" href="{% url 'login' %}">
+                                                <i class="fas fa-sign-in-alt"></i>
+                                                Login</a>
+                                            </li>
+                                            {% endif %}
+                                        </ul>
+                                    <!-- Nav End -->
+                                </div>
+                            <nav>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- Menu End-->
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sticky Header Area End-->

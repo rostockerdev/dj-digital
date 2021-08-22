@@ -1,0 +1,124 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper">
+<!--================ Start Course Details Area =================-->
+    <section id="bc" class="bc"><!-- Breadcrumb -->
+        <div class="container">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                <a href="{% url 'home'%}">
+                    <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active">FAQ</li>
+            </ol>
+            </nav>
+        </div>
+    </section><!-- /Breadcrumb -->
+    <section class="faq__details section__gap"><!-- course__details -->
+        <div class="container">
+            <div class="row">
+                {% if messages %}
+                    <div class="alert__section">
+                        {% include "partials/_alerts.html" %}
+                    </div>
+                {% endif %}
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <div class="section__heading__wrapper">
+                        <h2 class="section__heading__title">FAQ</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 faq__details--left"><!-- course__details--left -->
+                    <!-- FAQs -->
+                        <div class="faqs">
+                            <div class="panel_title">FAQs</div>
+                            <div class="accordions">
+                                            
+                                <div class="elements_accordions">
+
+                                    <div class="accordion_container">
+                                        <div class="accordion d-flex flex-row align-items-center active"><div class="accordion_tag"><p>Can I just enroll in a single course? I'm not interested in the entire Specializat</p></div></div>
+                                        <div class="accordion_panel">
+                                            <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed commodo nisi lectus id ipsum. Sed nec elit vehicula, aliquam neque euismod, porttitor ex. Nam consequat iaculis maximus.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion_container">
+                                        <div class="accordion d-flex flex-row align-items-center"><div class="accordion_tag"><p>What is the refund policy?</p></div></div>
+                                        <div class="accordion_panel">
+                                            <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed commodo nisi lectus id ipsum. Sed nec elit vehicula, aliquam neque euismod, porttitor ex. Nam consequat iaculis maximus.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion_container">
+                                        <div class="accordion d-flex flex-row align-items-center"><div class="accordion_tag"><p>What background knowledge is necessary</p></div></div>
+                                        <div class="accordion_panel">
+                                            <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed commodo nisi lectus id ipsum. Sed nec elit vehicula, aliquam neque euismod, porttitor ex. Nam consequat iaculis maximus.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion_container">
+                                        <div class="accordion d-flex flex-row align-items-center"><div class="accordion_tag"><p>Do i need to take the courses in a specific ord</p></div></div>
+                                        <div class="accordion_panel">
+                                            <p>Nam egestas lorem ex, sit amet commodo tortor faucibus a. Suspendisse commodo, turpis a dapibus fermentum, turpis ipsum rhoncus massa, sed commodo nisi lectus id ipsum. Sed nec elit vehicula, aliquam neque euismod, porttitor ex. Nam consequat iaculis maximus.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                </div><!-- /.course__details--left -->
+                <div class="col-lg-4 faq__details--right"><!-- course__details--right -->
+                    <div class="right__sidebar">
+                        <aside class="single__sidebar course__widget">
+                            <h3 class="widget__title">Popular Courses</h3>
+                            {% for course in courses %}
+                                <div class="widget__item">
+                                    <div class="widget__img">
+                                        <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}">
+                                    </div>
+                                    <div class="widget__body">
+                                        <a href="{{course.get_absolute_url }}">{{course.title}}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </aside>
+
+                        <aside class="single__sidebar ads__widget">
+                            <div class="ads__item">
+                                <div class="ads__item__img">
+                                    <img src="{% static 'img/bg-img/add.jpg' %}" alt="Ad"/>
+                                </div>
+                            </div>
+                        </aside>
+                        
+                        <aside class="single__sidebar instructor__widget">
+                            <h3 class="widget__title">Top Instructors</h3>
+                            {% for instructor in instructors %}
+                                <div class="widget__item">
+                                    <div class="widget__instructor__img">
+                                        <img src="{{ instructor.pro_pic.url }}" alt="{{ instructor.username }}">
+                                    </div>
+                                    <div class="widget__body">
+                                        <a href="{{instructor.get_absolute_url }}">{{instructor.username}}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </aside>
+                        
+                    </div>
+                </div><!-- /.course__details--right -->
+            </div>
+        </div>
+    </section><!-- /course__details -->
+<!--================ End Course Details Area =================-->
+</div>
+<!-- ##### Content End ##### -->
+{% endblock content %}
