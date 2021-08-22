@@ -15,9 +15,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 LOCAL_APPS = [
     "pages.apps.PagesConfig",
     "errors.apps.ErrorsConfig",
+    "accounts.apps.AccountsConfig",
+    "memberships.apps.MembershipsConfig",
+    "instructors.apps.InstructorsConfig",
 ]
 
 THIRDPARTY_APPS = [
+    "crispy_forms",
+    "imagekit",
     "django.contrib.humanize",
     "django.contrib.sitemaps",
 ]
@@ -121,6 +126,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+####################################
+##  LOGIN CONFIGURATION ##
+####################################
+
+# LOGIN_REDIRECT_URL = 'memberships:dashboard'
+# LOGIN_URL = 'login'
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+
+SITE_ID = 1
 ###########################################
 #        MESSAGE  CONFIGURATION           #
 ###########################################

@@ -40,6 +40,13 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = False
 
+####################################
+##  STRIPE CONFIGURATION ##
+####################################
+
+STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+
 ###########################################
 #           EMAIL CONFIGURATION           #
 ###########################################

@@ -1,0 +1,28 @@
+{% extends "base/base.html" %}
+{% block title %} | Login {% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+  <section id="login" class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-rlds-primary text-white">
+              <h4>
+                <i class="fas fa-sign-in-alt"></i> Password Reset</h4>
+            </div>
+            <div class="card-body">
+              <!--Alert-->
+              {% comment %} {% include "partials/_alerts.html" %} {% endcomment %}
+                <div class="form-group">
+                    <h2 class="alert__muted-text text-center">An email has been sent with instructions to reset the password.</h2>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

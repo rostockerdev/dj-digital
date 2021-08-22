@@ -1,0 +1,63 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper">
+
+    <section id="bc" class="bc"><!-- Breadcrumb -->
+        <div class="container">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                <a href="{% url 'home'%}">
+                    <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active"><i class="fas fa-chalkboard-teacher"></i> Instructors</li>
+            </ol>
+            </nav>
+        </div>
+    </section><!-- Breadcrumb -->
+
+    <div class="instructors_section section__gap"><!-- .instructors_section -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <div class="section__heading__wrapper">
+                        <h2 class="section__heading__title">Instructors</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% if instructors %}
+                    {% for instructor in instructors %}
+                        <div class="col-md-4">
+                            <div class="instructor text-center"><!-- .instructor -->
+                                {% if instructor.pro_pic %}
+                                    <div class="instructor-image__container">
+                                        <div class="instructor__image"><img src="{{ instructor.pro_pic.url}}" alt=""></div>
+                                    </div>
+                                {% endif %}
+                                <div class="instructor__name"><a href="{{ instructor.get_absolute_url }}">{{ instructor.username }}</a></div>
+                                <div class="instructor__title">Instructor</div>
+                                <div class="instructor__text">
+                                    <p>{{ instructor.biography|truncatewords:10 }}</p>
+                                </div>
+                                <div class="instructor__social">
+                                    <p><i class="fas fa-envelope-open"></i> {{ instructor.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                <div class="col-md-12">
+                    <p>No Instructors are available now.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div><!-- /.instructors_section -->
+</div>
+<!-- ##### Content End ##### -->
+{% endblock content %}

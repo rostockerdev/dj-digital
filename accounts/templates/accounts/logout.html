@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+{% block content %}
+<div class="content-wrapper">
+  <section id="login" class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card">
+            <div class="card-header bg-rlds-primary text-white">
+              <h4>
+                <i class="fas fa-sign-in-alt"></i> Logout</h4>
+            </div>
+            <div class="card-body">
+              <!--Alert-->
+              {% include "partials/_alerts.html" %}
+              
+              <h2 class="alert__muted-text text-center">You are logged out...</h2>
+                <div class="border-top pt-3">
+                    <small class="text-muted alert__muted-sm">
+                        Already Have An Account? <a href="{% url 'login' %}" class="ml-2">Log In</a>
+                    </small>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

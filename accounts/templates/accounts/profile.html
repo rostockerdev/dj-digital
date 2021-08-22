@@ -1,0 +1,125 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper">
+	<section id="bc" class="bc"><!-- Breadcrumb -->
+        <div class="container">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                <a href="{% url 'home'%}">
+                    <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active"> Profile</li>
+            </ol>
+            </nav>
+        </div>
+    </section><!-- /Breadcrumb -->
+	<section class="profile__section section__gap"><!-- .profile__section -->
+		<div class="container">
+			<div class="row">
+				<div class="alert__section">
+                    {% include "partials/_alerts.html" %}
+                </div>
+				<div class="col-lg-8 profile__section--left"><!-- .profile__section--left-->
+					<div class="profile__header">
+						{% if user.profile.profile_pic %}
+							<div class="profile__imgwrapper">
+								<div class="profile__image">
+									<img class="profile__img" src="{{ user.profile.profile_pic.url }}" alt="">
+								</div>
+							</div>
+						{% endif %}
+					</div>
+					<div class="profile__wrapper">
+						<h2 class="profile__title">Info</h2>
+						<div class="profile__content">
+							<div class="row">
+								<div class="col-sm-12">
+									<form  method="POST" enctype="multipart/form-data">
+										{% csrf_token %}
+										<fieldset class="form-group">
+											{{ u_form | crispy }}
+											{{ p_form | crispy }}
+										</fieldset>
+										<div class="form-group">
+											<button class="btn update__btn btn-block" type="submit"> Update</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- /.profile__section--left -->
+
+
+				<div class="col-lg-4 profile__section--right"><!-- .profile__section--right-->
+					<div class="membership__info">
+						<h2 class="membership__title">Membership Information</h2>
+							{% if user_subscription != None %}
+								<div class="user__membership">
+									<div class="current__membership">
+										<h3 class="current__plan">Current Membership: {{ user_membership.membership.membership_type }} </h3>
+										<p class="current__schedule">Next payment due: {{ user_subscription.get_next_billing_date }}</p>
+									</div>
+									{% if user_subscription.active != False %}
+										
+										<a class="btn btn-outline-info" href="{% url 'memberships:cancel' %}">Cancel subscription</a>
+
+									{% else %}
+										<p class="plan__text">You don't have an active membership plan.</p>  
+										<a class="btn btn-outline-info" href="{% url 'memberships:select' %}">Choose Membership</a>
+										
+									{% endif %}
+								</div>
+							{% endif %}
+					</div>
+					<div class="right__sidebar">
+                        <aside class="single__sidebar course__widget">
+                            <h3 class="widget__title">Popular Courses</h3>
+                            {% for course in courses %}
+                                <div class="widget__item">
+                                    <div class="widget__img">
+                                        <img src="{{ course.thumbnail.url }}" alt="{{ course.title }}">
+                                    </div>
+                                    <div class="widget__body">
+                                        <a href="{{course.get_absolute_url }}">{{course.title}}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </aside>
+
+                        <aside class="single__sidebar ads__widget">
+                            <div class="ads__item">
+                                <div class="ads__item__img">
+                                    <img src="{% static 'img/bg-img/add.jpg' %}" alt="Ad"/>
+                                </div>
+                            </div>
+                        </aside>
+                        
+                        <aside class="single__sidebar instructor__widget">
+                            <h3 class="widget__title">Top Instructors</h3>
+                            {% for instructor in instructors %}
+                                <div class="widget__item">
+                                    <div class="widget__instructor__img">
+                                        <img src="{{ instructor.pro_pic.url }}" alt="{{ instructor.username }}">
+                                    </div>
+                                    <div class="widget__body">
+                                        <a href="{{instructor.get_absolute_url }}">{{instructor.username}}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </aside>
+                        
+                    </div>
+				</div><!-- .profile__section--right-->
+			</div>
+		</div>
+	</section><!-- /.profile__section -->
+</div>
+<!-- ##### Content End ##### -->
+{% endblock  %}
