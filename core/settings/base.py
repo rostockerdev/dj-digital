@@ -21,6 +21,7 @@ LOCAL_APPS = [
     "courses.apps.CoursesConfig",
     "subscriptions.apps.SubscriptionsConfig",
     "notifications.apps.NotificationsConfig",
+    "quizes.apps.QuizesConfig",
 ]
 
 THIRDPARTY_APPS = [

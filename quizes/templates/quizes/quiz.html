@@ -1,0 +1,37 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper">
+    <section class="quiz__section section_gap section-padding-70"><!-- quiz__section -->
+        <div class="container">
+            <div class="row">
+                <div class="quiz__wrapper">
+                    <div class="quiz__header">
+                        <h2 class="quiz__title">RostockerLabs Digital Service</h2>
+                        <h3 class="quiz__subtitle">{{ lesson_slug }}</h3>
+                    </div>
+                    <div class="quiz__content">
+                        <div id = "results"></div>
+                        <form name="quizForm" action="{% url 'courses:quizresult' course_slug lesson_slug %}" method="POST">
+                            {% csrf_token %}
+                            {% for q in questions %}
+                                <h3> {{ forloop.counter }}.  {{ q.ques }}</h3>
+                                <input type = "radio" name = "q{{ q.id }}" value = "a" id = "q1a" checked/>   a. {{ q.option1 }}<br/>
+                                <input type = "radio" name = "q{{ q.id }}" value = "b" id = "q1b"/>   b. {{ q.option2 }}<br/>       
+                                <input type = "radio" name = "q{{ q.id }}" value = "c" id = "q1c"/>   c. {{ q.option3 }}<br/>
+                                <input type = "radio" name = "q{{ q.id }}" value = "d" id = "q1d"/>   d. {{ q.option4 }}<br/>
+                            {% endfor %}
+
+                                <br><br>
+                                <input class="quiz__submit" type="submit" value="Submit Answer">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- quiz__section -->
+</div>
+<!-- ##### Content Start ##### -->
+{% endblock content %}
