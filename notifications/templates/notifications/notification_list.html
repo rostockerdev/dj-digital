@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper">
+    <!-- Breadcrumb -->
+    <section id="bc" class="mt-3">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                <a href="{% url 'home'%}">
+                    <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active"><i class="fas fa-bell"></i> Notifications</li>
+            </ol>
+            </nav>
+        </div>
+    </section>
+    <!-- Breadcrumb -->
+    <div class="notification__section mt-50 section-padding-100-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="notification__wrapper">
+                        <div class="notification__content">
+                            {% if notifications %}
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Messages</th>
+                                        <th scope="col">Date</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    
+                                    {% for notification in notifications %}
+                                    <tr {% if not notification.viewed %} class="notification__message--unseen"{% endif %}>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ notification.title|truncatewords:5 }}</td>
+                                        <td><a href="{{ notification.get_notification_url }}" >{{ notification.message|truncatewords:5}}</a></td>
+                                        <td>{{ notification.notification_at }}</td>
+                                        <td><a style='color: red;' href="{% url 'notifications:delete_notification' notification.id %}">
+                <i class="fas fa-trash float-right"></i>
+            </a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <h2>You have no notification at now.</h2>
+                            {% endif %}
+                        </div> <!-- /notification__content-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

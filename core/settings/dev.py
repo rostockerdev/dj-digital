@@ -40,7 +40,7 @@ STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 ##  MAILGUN CONFIGURATION ##
 ####################################
 
-MAILGUN_API_KEY = config("MAILGUN_API_KEY")
+MAILGUN_API_KEY = config("MAILGUN_API_PUBLIC_KEY")
 ENCRYPT_KEY = b"i_D8bT2mswqAleNqCAUqRfcxsii4dQRLJk8-E1W0oow="
 
 ###########################################

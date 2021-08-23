@@ -62,6 +62,7 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("subscribe/", include("subscriptions.urls", namespace="subscriptions")),
+    path("notifications/", include("notifications.urls", namespace="notifications")),
 ]
 
 # Error Handler

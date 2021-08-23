@@ -1,0 +1,3 @@
+from .notification_delete import notification_delete_view
+from .notification_detail import notification_detail_view
+from .notification_list import notification_detail_view
