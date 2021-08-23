@@ -19,6 +19,7 @@ LOCAL_APPS = [
     "memberships.apps.MembershipsConfig",
     "instructors.apps.InstructorsConfig",
     "courses.apps.CoursesConfig",
+    "subscriptions.apps.SubscriptionsConfig",
 ]
 
 THIRDPARTY_APPS = [
