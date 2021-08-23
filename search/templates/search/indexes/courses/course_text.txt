@@ -1,0 +1,11 @@
+{{ object.title }}
+{{ object.slug }}
+{{ object.description }}
+{{ object.start_date }}
+{% for membership in object.allowed_membership.all %}
+    {{ membership.membership_type}}
+{% endfor %}
+{% for instructor in object.instructors.all %}
+    {{ instructor.username}}
+{% endfor %}
+{{ object.thumbnail }}

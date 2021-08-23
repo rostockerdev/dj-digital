@@ -22,12 +22,15 @@ LOCAL_APPS = [
     "subscriptions.apps.SubscriptionsConfig",
     "notifications.apps.NotificationsConfig",
     "quizes.apps.QuizesConfig",
+    "search.apps.SearchConfig",
 ]
 
 THIRDPARTY_APPS = [
     "crispy_forms",
+    "haystack",
     "imagekit",
     "ckeditor",
+    "whoosh",
     "ckeditor_uploader",
     "django.contrib.humanize",
     "django.contrib.sitemaps",
@@ -78,6 +81,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "notifications.context_processors.notification_count",
             ],
         },
     },

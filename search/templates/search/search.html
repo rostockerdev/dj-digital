@@ -1,0 +1,74 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load background_image_tags %}
+{% load user_review %}
+{% load humanize %}
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper">
+    <section id="bc" class="bc"><!-- Breadcrumb -->
+        <div class="container">
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                <a href="{% url 'home'%}">
+                    <i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active"><i class="far fa-sticky-note"></i> Search</li>
+            </ol>
+            </nav>
+        </div>
+    </section><!-- Breadcrumb -->
+    
+    <!-- ##### Search Content ##### -->
+    <div class="top-popular-courses-area section__gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <div class="section__heading__wrapper">
+                        {% comment %} <span>The Best</span>  text-center mx-auto wow fadeInUp" data-wow-delay="300ms{% endcomment %}
+                            <h2 class="section__heading__title">Search</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% if courses %}
+                    <!-- Single Top Popular Course Start-->
+                    {% for course in courses  %}
+                    <div class="col-12 col-lg-6">
+                        <div class="popular-course d-flex align-items-center flex-wrap mb-30 wow fadeInUp" data-wow-delay="400ms" style="visibility: visible; animation-delay: 400ms; animation-name: fadeInUp;">
+                            <div class="popular-course__content">
+                                <span class="course__mark">
+                                    {% for membership in course.object.allowed_membership.all %}
+                                        {{ membership.membership_type}}
+                                    {% endfor %}
+                                </span>
+                                <h5>{{ course.title }}</h5>
+                                <span>By: {% for instructor in course.object.instructors.all %}
+                                            {{ instructor.username }} {% if not forloop.last %},{% endif %}
+                                        {% endfor %}   |  {{course.start_date|date:'d-m-Y'}}</span>
+                                
+                                <p>{{ course.description|safe|truncatewords:7 }}</p>
+                                <a href="{{course.object.get_absolute_url }}" class="btn course-btn btn-sm">See More</a>
+                            </div>
+                            <div class="popular-course__thumb bg-img"  style="background-image: url(/media/{{course.object.thumbnail}});">
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <!-- Single Top Popular Course End -->
+                {% else %}
+                    <div class="col-12 text-center">
+                        <p>Nothing Found</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+    <!-- ##### Top Popular Courses Area End ##### -->
+</div>
+<!-- ##### Content Start ##### -->
+{% endblock content %}
