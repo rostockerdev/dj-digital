@@ -7,7 +7,8 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 
 from accounts import views as user_views
-from pages.views.home_view import home_view
+
+from .views.home_view import home_view
 
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),
