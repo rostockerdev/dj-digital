@@ -18,6 +18,7 @@ urlpatterns = [
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
     path("instructors/", include("instructors.urls", namespace="instructors")),
+    path("courses/", include("courses.urls", namespace="courses")),
     path("", home_view, name="home"),
     path("admin/", admin.site.urls),
     path("dashboard/", include("memberships.urls", namespace="memberships")),

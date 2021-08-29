@@ -83,6 +83,9 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "notifications.context_processors.notification_count",
             ],
+            "libraries": {
+                "staticfiles": "django.templatetags.static",
+            },
         },
     },
 ]
