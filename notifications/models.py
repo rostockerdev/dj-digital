@@ -9,9 +9,11 @@ from courses.models import Course
 
 
 class Notification(models.Model):
-    title = models.CharField(max_length=256)
+    """The representation of the Notification Model Instance"""
+
+    title = models.CharField("Notification Title", max_length=256)
     message = models.TextField()
-    viewed = models.BooleanField(default=False)
+    is_viewed = models.BooleanField("Is Viewed", default=False)
     notification_at = models.DateTimeField(
         verbose_name="Notification Create At", auto_now_add=True, null=True
     )
@@ -29,6 +31,9 @@ class Notification(models.Model):
         return reverse(
             "notifications:notification-detail", kwargs={"notification_id": self.id}
         )
+
+    # def get_absolute_url(self):
+    #     return reverse("notifications:notification-detail", kwargs={"notification_url": self.id})
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

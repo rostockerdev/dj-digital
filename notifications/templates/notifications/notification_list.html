@@ -38,12 +38,12 @@
                                     <tbody>
                                     
                                     {% for notification in notifications %}
-                                    <tr {% if not notification.viewed %} class="notification__message--unseen"{% endif %}>
+                                    <tr {% if not notification.is_viewed %} class="notification__message--unseen"{% endif %}>
                                         <th scope="row">{{ forloop.counter }}</th>
                                         <td>{{ notification.title|truncatewords:5 }}</td>
                                         <td><a href="{{ notification.get_notification_url }}" >{{ notification.message|truncatewords:5}}</a></td>
                                         <td>{{ notification.notification_at }}</td>
-                                        <td><a style='color: red;' href="{% url 'notifications:delete_notification' notification.id %}">
+                                        <td><a style='color: red;' href="{% url 'notifications:notification-delete' notification.id %}">
                 <i class="fas fa-trash float-right"></i>
             </a></td>
                                     </tr>

@@ -5,10 +5,10 @@ from notifications.models import Notification
 
 def notification_detail_view(request, notification_id):
     notification = Notification.objects.get(id=notification_id)
-    notification.viewed = True
+    notification.is_viewed = True
     notification.save()
     return render(
         request,
-        "notifications/notifications_detail.html",
+        "notifications/notification_detail.html",
         {"notification": notification},
     )

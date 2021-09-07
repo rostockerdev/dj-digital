@@ -11,6 +11,6 @@ def notification_list_view(request):
     )
     return render(
         request,
-        "notifications/notifications_list.html",
-        {"notifications": notifications},
+        "notifications/notification_list.html",
+        context={"notifications": notifications},
     )

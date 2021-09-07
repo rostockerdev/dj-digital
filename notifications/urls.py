@@ -5,14 +5,14 @@ from notifications import views as notification_view
 app_name = "notifications"
 
 urlpatterns = [
-    path("", notification_view.notification_list_view, name="notifications"),
+    path("", notification_view.notification_list_view, name="notification-list"),
     path(
-        "show/<notification_id>/",
+        "show/<int:notification_id>/",
         notification_view.notification_detail_view,
         name="notification-detail",
     ),
     path(
-        "delete/<notification_id>/",
+        "delete/<int:notification_id>/",
         notification_view.notification_delete_view,
         name="notification-delete",
     ),
