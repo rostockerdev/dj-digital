@@ -9,7 +9,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ["profile", "stripe_subscription_id", "active"]
+    list_display = ["profile", "stripe_subscription_id", "is_active"]
 
 
 admin.site.register(Profile, ProfileAdmin)

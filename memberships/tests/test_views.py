@@ -13,6 +13,7 @@ class MembershipViewTestCase(TestCase):
         self.test_user = User.objects.create_user(
             username="test_user", password="test_pass"
         )
+        self.test_user.save()
         self.membership_free = Membership.objects.create(
             slug="free",
             # membership_type='Free',

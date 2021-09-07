@@ -14,13 +14,15 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class Profile(models.Model):
+    """Model representing Profile."""
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True
     )
     membership = models.ForeignKey(
         "memberships.Membership", on_delete=models.SET_NULL, null=True
     )
-    stripe_customer_id = models.CharField(max_length=100)
+    stripe_customer_id = models.CharField("Stripe Customer ID", max_length=128)
     profile_pic = ProcessedImageField(
         default="avatar.jpg",
         upload_to="profile-pic/",
@@ -30,6 +32,7 @@ class Profile(models.Model):
     )
 
     def __str__(self):
+        """String for representing the Model object"""
         return self.user.username
 
     class Meta:
@@ -38,13 +41,16 @@ class Profile(models.Model):
 
 
 class Subscription(models.Model):
+    """Model representing Subscription Instance."""
+
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    stripe_subscription_id = models.CharField(max_length=50)
-    active = models.BooleanField(default=True)
+    stripe_subscription_id = models.CharField("Stripe Subscription ID", max_length=128)
+    is_active = models.BooleanField("Subscription Status", default=True)
 
     class Meta:
         verbose_name = "Subscription"
         verbose_name_plural = "Subscriptions"
 
     def __str__(self):
+        """String for representing the Model object"""
         return self.profile.user.username
