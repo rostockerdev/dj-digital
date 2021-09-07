@@ -14,7 +14,7 @@ class Round(Func):
 
 
 class Instructor(models.Model):
-    username = models.CharField("Username", max_length=64, blank=True, null=True)
+    username = models.CharField("Instructor Name", max_length=64, blank=True, null=True)
     first_name = models.CharField("First Name", max_length=24, blank=True, null=True)
     last_name = models.CharField("Last Name", max_length=24, blank=True, null=True)
     email = models.EmailField("Email", blank=True, null=True)
