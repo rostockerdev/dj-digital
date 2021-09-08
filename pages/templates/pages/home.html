@@ -1,18 +1,106 @@
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     {% if title %}
         <title>RostockerLabs - Digital Sevices | {{ title }}</title>
     {% else %}
         <title>RostockerLabs - Digital Sevices</title>
     {% endif %}
+    <link rel="shortcut icon"  href="{% static 'favicon/favicon.ico' %}"/>
 </head>
 <body>
-    {{ title }}
+    <!-- ##### Preloader ##### -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+    </div>
+    <div class="site">
+        <!-- Site Header Start -->
+        <div class="sticky-header">
+            <div class="classy-sticky-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <div class="sticky-wrapper justify-content-between" id="academyNav">
+                        <div class="site-brand">
+                            <a class="navbar-brand" href="{% url 'home' %}">
+                                <img src="{% static 'img/logo/logo.png'%}" class="logo" alt="">
+                            </a>
+                        </div>
+                        <div class="language-wrapper">
+                            <div class="language-content">
+                                <div class="language-form">
+                                    <form action="{% url 'set_language' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name='next' value="{{ redirect_to }}">
+                                        <select name="language" id="" class="selectpicker" style="width: auto;" onchange="this.form.submit()">
+                                            {% get_current_language as LANGUAGE_CODE %}
+                                            {% get_available_languages as LANGUAGES %}
+                                            {% get_language_info_list for LANGUAGES as languages %}
+                                            {% for language in languages  %}
+                                                <option
+                                                    value="{{ language.code }}"
+                                                    {% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}
+                                                    data-content='<img src="{% static 'img/flags/'%}{{language.code}}.png ">
+                                                    <span style="display:inline-block; width:100px; padding-left: 10px; text-shadow:none">
+                                                    {{ language.name_local }}
+                                                    </span>'>
+                                                    {{ language.code }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Site Header End -->
+        <!-- Hero Area Start -->
+        <div class="hero_area overlay">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="main_title text-center">
+                            <h2>{% trans "Facts that Make us Unique" %}</h2>
+                            <p>{% trans "There is a moment in the life of any aspiring astronomer that,"%} 
+                            {% trans "it is time to buy that first telescope." %}
+                            {% trans "It’s exciting to think about setting up your own viewing station." %}</p>
+                            <a href="{% url 'register'%}" class="primary-btn text-uppercase apply-btn">{% trans "Apply Now" %}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Search features Start -->
+                    <div class="col-md-6 offset-md-3">
+                        <div class="search_course_wrap">
+                            <form method="get" action="{% url 'search:search' %}" class="autocomplete-me form_box d-flex">
+                                <input type="text" id="id_q" name="q" autocomplete="off" placeholder='{% trans "Search Courses.." %}' class="form-control"  onfocus="this.placeholder = ''"
+                                    onblur='this.placeholder = {% trans "Search Courses.." %}'>
+                                <button type="submit" class="btn search_course_btn">{% trans "Search" %}</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Search Features End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    {% include "partials/_scripts.html" %}
+    <!-- Scripts -->
+    
 </body>
 </html>

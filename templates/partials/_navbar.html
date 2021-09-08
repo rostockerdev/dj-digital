@@ -36,7 +36,7 @@
                                                 <i class="fas fa-user-plus"></i> Dashboard </a>
                                             </li>
                                             <li {% if 'courses' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
-                                                <a class="nav-link" href="{% url 'courses:courselist' %}">
+                                                <a class="nav-link" href="{% url 'courses:course-list' %}">
                                                 <i class="far fa-sticky-note"></i>
                                                 Courses</a>
                                             </li>
@@ -52,7 +52,7 @@
                                             </li>
                                             {% else %}
                                             <li {% if 'courses' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
-                                                <a class="nav-link" href="{% url 'courses:courselist' %}">
+                                                <a class="nav-link" href="{% url 'courses:course-list' %}">
                                                 <i class="far fa-sticky-note"></i>
                                                 Courses</a>
                                             </li>

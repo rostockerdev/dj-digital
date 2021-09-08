@@ -47,6 +47,6 @@ def lesson_detail_view(request, course_slug, lesson_slug):
                     request,
                     "You are not allowed to view more. You have to change the membership.",
                 )
-                return redirect("courses:courselist")
+                return redirect("courses:course-list")
         else:
-            return redirect("courses:courselist")
+            return redirect("courses:course-list")

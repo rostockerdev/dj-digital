@@ -18,7 +18,7 @@ def restrict_quiz(membership_type):
             if profile_membership_type in membership_type:
                 return view_func(request, *args, **kwargs)
             else:
-                return HttpResponseRedirect(reverse("courses:courselist"))
+                return HttpResponseRedirect(reverse("courses:course-list"))
 
         return _arguments_wrapper
 

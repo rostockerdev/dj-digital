@@ -66,6 +66,7 @@ urlpatterns = [
     path("subscribe/", include("subscriptions.urls", namespace="subscriptions")),
     path("notifications/", include("notifications.urls", namespace="notifications")),
     path("search/", include("search.urls", namespace="search")),
+    path("ckeditor/", include("ckeditor_uploader.urls")),
 ]
 
 # Error Handler

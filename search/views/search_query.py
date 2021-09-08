@@ -10,4 +10,5 @@ def search_query_view(request):
         return redirect("home")
     else:
         courses = SearchQuerySet().filter(content_auto=query_text)
+        print(courses)
         return render(request, "search/search.html", {"courses": courses})
