@@ -15,4 +15,4 @@ def home_view(request):
     ##############################
     title = _("Home")
     context = {"title": title}
-    return render(request, "pages/home.html", context)
+    return render(request, "home.html", context)

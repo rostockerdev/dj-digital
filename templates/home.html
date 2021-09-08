@@ -1,5 +1,5 @@
-{% load static %}
 {% load i18n %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +19,18 @@
         <title>RostockerLabs - Digital Sevices</title>
     {% endif %}
     <link rel="shortcut icon"  href="{% static 'favicon/favicon.ico' %}"/>
+    <style>
+        .language-form .bootstrap-select {
+            width: 120px;
+            margin-top: 10px;
+            margin-left: 8px;
+        }
+
+        .language-form .bootstrap-select button {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+    </style>
 </head>
 <body>
     <!-- ##### Preloader ##### -->
@@ -42,19 +54,25 @@
                                 <div class="language-form">
                                     <form action="{% url 'set_language' %}" method="POST">
                                         {% csrf_token %}
-                                        <input type="hidden" name='next' value="{{ redirect_to }}">
+                                        {% if next %}
+                                            <input type="hidden" name='next' value="{{ next }}">
+                                        {% else %}
+                                            <input type="hidden" name='next' value="/">
+                                        {% endif %}
+                                        
                                         <select name="language" id="" class="selectpicker" style="width: auto;" onchange="this.form.submit()">
-                                            {% get_current_language as LANGUAGE_CODE %}
-                                            {% get_available_languages as LANGUAGES %}
-                                            {% get_language_info_list for LANGUAGES as languages %}
+                                            {% get_current_language as CURRENT_LANGUAGE %}
+                                            {% get_available_languages as AVAILABLE_LANGUAGES %}
+                                            {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
                                             {% for language in languages  %}
                                                 <option
                                                     value="{{ language.code }}"
-                                                    {% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}
-                                                    data-content='<img src="{% static 'img/flags/'%}{{language.code}}.png ">
+                                                    {% if language.code == CURRENT_LANGUAGE %} selected="selected"{% endif %}
+                                                    data-content='<img src="{% static 'img/flags/'%}{{language.code}}.png">
                                                     <span style="display:inline-block; width:100px; padding-left: 10px; text-shadow:none">
-                                                    {{ language.name_local }}
-                                                    </span>'>
+                                                        {{ language.name_local }}
+                                                    </span>'
+                                                >
                                                     {{ language.code }}
                                                 </option>
                                             {% endfor %}

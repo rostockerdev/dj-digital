@@ -72,3 +72,8 @@ try:
     )
 except Exception:
     pass
+
+try:
+    from .language_settings import *
+except Exception:
+    pass

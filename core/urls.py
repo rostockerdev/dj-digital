@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import handler400, handler403, handler404, handler500
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
@@ -7,18 +8,16 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 
 from accounts import views as user_views
-
-from .views.home_view import home_view
+from core.views.home_view import home_view
 
 urlpatterns = [
-    path("i18n/", include("django.conf.urls.i18n")),
-    # Robots.txt
     path(
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
     path("instructors/", include("instructors.urls", namespace="instructors")),
     path("courses/", include("courses.urls", namespace="courses")),
+    path("i18n/", include("django.conf.urls.i18n")),
     path("", home_view, name="home"),
     path("admin/", admin.site.urls),
     path("dashboard/", include("memberships.urls", namespace="memberships")),
