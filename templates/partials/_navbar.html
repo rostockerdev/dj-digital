@@ -27,7 +27,7 @@
                                             {% if user.is_authenticated %}
                                             {% if notification_count is not 0 %}
                                             <li {% if 'notifications' in request.path %} class="nav-item active mr-3" {% else %} class="nav-item mr-3" {% endif %} >
-                                                <a class="nav-link" href="{% url 'notifications:notifications' %}">
+                                                <a class="nav-link" href="{% url 'notifications:notification-list' %}">
                                                 <i class="fas fa-bell"></i><sup>{{ notification_count }}</sup></a>
                                             </li>
                                             {% endif %}

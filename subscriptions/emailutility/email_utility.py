@@ -1,16 +1,21 @@
 import logging
 import traceback
 
-import requests
 from django.conf import settings
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.http.response import BadHeaderError
+from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.html import strip_tags
 
+import requests
+
 
 def send_email(data):
     try:
-        url = "https://api.mailgun.net/v3/sandboxa5146f9e78554380b3ec3231d6aca1a8.mailgun.org"
+        url = "https://api.mailgun.net/v3/sandboxa1ce4b0a8f0a4f67b646321afa99a5a3.mailgun.org/messages"
         status = requests.post(
             url,
             auth=("api", settings.MAILGUN_API_KEY),
@@ -18,14 +23,38 @@ def send_email(data):
                 "from": "Md. Mostofa kamal",
                 "to": [data["email"]],
                 "subject": data["subject"],
-                "text": data["plain_text"],
-                "html": data["html_text"],
+                "text": "sended test"
+                # "text": data["plain_text"],
+                # "html": data["html_text"],
             },
         )
+        print(f"Status: {status}")
+        # Email Send
+        # m_subject = data["subject"]
+        # m_body = data["html_text"]
+        # f_mail = "rostockerdev@gmail.com"
+        # t_mail = [data["email"]]
+        # if m_subject and m_body and f_mail:
+        #     try:
+        #         send_mail(m_subject, m_body, f_mail, t_mail, fail_silently=False)
+        #         # messages.success(
+        #         #     request,
+        #         #     "Your request has been submitted, a realtor will get back to you soon.",
+        #         # )
+        #         status = True
+        #         logging.getLogger("info_logger").info(
+        #             "Mail sent to " + data["email"] + ". status: " + str(status)
+        #         )
+        #     except BadHeaderError:
+        #         # messages.error(request, "Invalid header was set.")
+        #         logging.getLogger("error_logger").error(
+        #             "Sorry, Was not possible to send the mail"
+        #         )
+        #         return redirect("home")
         logging.getLogger("info_logger").info(
             "Mail sent to " + data["email"] + ". status: " + str(status)
         )
-        return status
+        return True
     except Exception:
         logging.getLogger("error_logger").error(traceback.format_exc())
         return False

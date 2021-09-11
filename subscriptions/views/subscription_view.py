@@ -4,7 +4,8 @@ from time import time
 
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.utils import timezone
 
 from subscriptions.emailutility.email_utility import send_subscription_email
@@ -12,7 +13,7 @@ from subscriptions.encodeutility.enc_dec_util import decrypt, encrypt
 from subscriptions.models import Subscribe
 from subscriptions.validation_utility import validate_email
 
-SUBSCRIBE_STATUS = "subscribed"
+SUBSCRIBE_STATUS = "pending"
 SEPARATOR = "&"
 
 
@@ -33,16 +34,18 @@ def save_email(email):
 
 
 def subscription_view(request):
+
     if request.method == "POST":
         post_data = request.POST.copy()
         email = post_data.get("email", None)
-        error_msg = validate_email(email)
-        if error_msg:
-            messages.error(request, error_msg)
+        validateion_error_msg = validate_email(email)
+
+        if validateion_error_msg:
+            messages.error(request, validateion_error_msg)
             return redirect("home")
 
-        save_status = save_email(email)
-        if save_status:
+        is_email_saved = save_email(email)
+        if is_email_saved:
             token = encrypt(email + SEPARATOR + str(datetime.time()))
             subscription_confirmation_url = (
                 request.build_absolute_uri(
@@ -51,14 +54,15 @@ def subscription_view(request):
                 + "?token="
                 + token
             )
-            status = send_subscription_email(email, subscription_confirmation_url)
-            if not status:
+            is_mailsend = send_subscription_email(email, subscription_confirmation_url)
+
+            if not is_mailsend:
                 Subscribe.objects.get(email=email).delete()
                 logging.getLogger("info_logger").info(
                     "Deleted the record from Subscribe table for "
                     + email
                     + " as email sending failed. status: "
-                    + str(status)
+                    + str(is_mailsend)
                 )
             else:
                 msg = (
