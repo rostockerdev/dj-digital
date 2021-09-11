@@ -1,0 +1,56 @@
+{% extends "base/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %} | Login {% endblock %}
+
+{% block content %}
+<!-- ##### Content Start ##### -->
+<div class="content-wrapper"><!-- content-wrapper -->
+    <section class="memberships__section section__gap"><!-- memberships__section -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <div class="container">
+                        <h2 class="section__title">Membership Plans</h2>
+                        <div class="row">
+                            {% for object in memberships %}
+                                <div class="col-sm-4 col-md-4">
+                                    <div class="plan__wrapper">
+                                        <h3 class="plan__title">{{ object.membership_type }}</h3>
+                                        <p class="plan__price">Price : <span class="plan__price__sym">${{ object.price }}</span></p>
+                                        <h3 class="plan__subtitle">Included Courses:</h3>
+                                        <ul class="plan__courselist">
+                                        {% for course in object.course_set.all  %}
+                                            <li>
+                                            {{ course.title }}
+                                            <ol>
+                                            {% for lesson in course.lesson_set.all  %}
+
+                                                <li>{{ lesson.title}}</li>
+                                            {% endfor %}
+                                            </ol>
+                                            </li>
+                                        {% endfor %}
+                                        </ul>
+                                        {% if object.membership_type != 'Free' %}
+                                            <form action="{% url 'memberships:select' %}" method="POST">
+                                                {% csrf_token %}
+                                                {% if object.membership_type != current_membership %}
+                                                    <button class="btn subscribe__btn btn-block">Subscribe</button>
+                                                {% else %}
+                                                    <p class="currentmembership__text">This is your current membership.</p>
+                                                    <a class="btn unsubscribe__btn btn-block" href="{% url 'memberships:cancel' %}">Unsubscribe</a>
+                                                {% endif %}
+                                                <input type="hidden" value="{{object.membership_type}}" name='membership_type'>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- /.memberships__section -->
+</div><!-- /.content-wrapper -->
+{% endblock content %}
