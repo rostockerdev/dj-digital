@@ -14,7 +14,7 @@ from .membership_utility import get_user_membership, get_user_subscription
 
 def cancel_subscription(request):
     user_subscription = get_user_subscription(request)
-    if user_subscription.active is False:
+    if user_subscription.is_active is False:
         messages.error(request, "You donot have active subscription")
         logging.getLogger("error_logger").error("You donot have active subscription")
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
@@ -22,7 +22,7 @@ def cancel_subscription(request):
     sub = stripe.Subscription.retrieve(user_subscription.stripe_subscription_id)
     del sub
 
-    user_subscription.active = False
+    user_subscription.is_active = False
     user_subscription.save()
 
     user_membership = get_user_membership(request)

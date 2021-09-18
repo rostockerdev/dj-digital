@@ -1,10 +1,11 @@
 from datetime import datetime
 
-import stripe
-from decouple import config
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+
+import stripe
+from decouple import config
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
@@ -54,3 +55,8 @@ class Subscription(models.Model):
     def __str__(self):
         """String for representing the Model object"""
         return self.profile.user.username
+
+    @property
+    def get_next_billing_date(self):
+        subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
+        return datetime.fromtimestamp(subscription.current_period_end)
