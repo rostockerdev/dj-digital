@@ -1,6 +1,6 @@
 
     
-    {% if request.user.is_authenticated %}
+{% if request.user.is_authenticated %}
     <form action="{% url 'courses:course-like' course.slug %}" method="POST">
         {% csrf_token %}
         {% if is_liked %}
@@ -10,7 +10,8 @@
             <button id="like" type="submit" name='course_slug' value="{{ course.slug }}" class="like__btn"><i class="fas fa-thumbs-up"></i></button>
             
         {% endif %}
-        <div class="tooltip"> {{ total_likes}} Like{{ total_likes|pluralize}}
+        {% if total_likes != 0 %}
+            <div class="tooltip"> {{ total_likes}} Like{{ total_likes|pluralize}}
                 <span class="tooltiptext">
                     <ul>
                         {% for likeduser in course.likes.all  %}
@@ -23,23 +24,7 @@
                     </ul>
                 </span>
             </div>
+        {% endif %}
+        
     </form>
-    {% endif %}
-
-    {% comment %} <div class="tooltip"> {{ total_likes}} Like{{ total_likes|pluralize}}
-        <span class="tooltiptext">
-            <ul>
-                {% for likeduser in course.likes.all  %}
-                    {% if likeduser == request.user  %}
-                       <li> You {% if not forloop.last %}, {% endif %} </li>
-                    {% else %}
-                        <li>{{ likeduser }} {% if not forloop.last %}, {% endif %}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-        </span>
-    </div> {% endcomment %}
-    
-    
-
-
+{% endif %}
