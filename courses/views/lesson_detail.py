@@ -41,8 +41,6 @@ def lesson_detail_view(request, course_slug, lesson_slug):
                     "lesson_slug": lesson_slug,
                     "title": lesson.title,
                 }
-                print(lesson)
-                print(form)
                 return render(request, "courses/lesson_detail.html", context)
             else:
                 messages.warning(

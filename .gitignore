@@ -22,7 +22,7 @@ venv/
 migrations/
 
 # Javascript
-node_modules/
+gulp/node_modules/
 build
 
 # Environment Variables
