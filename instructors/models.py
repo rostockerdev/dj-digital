@@ -3,8 +3,10 @@ from django.db import models
 from django.db.models import Avg, Func
 from django.db.models.signals import pre_save
 from django.urls import reverse
+
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
+from phonenumber_field.modelfields import PhoneNumberField
 
 from instructors.instructor_utility import unique_username_generator
 
@@ -20,6 +22,7 @@ class Instructor(models.Model):
     email = models.EmailField("Email", blank=True, null=True)
     dofb = models.DateField("Date of Birth", blank=True, null=True)
     biography = models.TextField("Biography", blank=True, null=True)
+    mobile_no = PhoneNumberField()
     pro_pic = ProcessedImageField(
         upload_to="instructor_pic/",
         default="avatar.jpg",

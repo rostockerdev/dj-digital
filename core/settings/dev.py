@@ -59,6 +59,10 @@ STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 MAILGUN_API_KEY = config("MAILGUN_API_PRIVATE_KEY")
 ENCRYPT_KEY = b"i_D8bT2mswqAleNqCAUqRfcxsii4dQRLJk8-E1W0oow="
 
+TWILIO_ACCOUNT_SID = config("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = config("TWILIO_AUTH_TOKEN")
+TWILIO_PHONE_NO = config("TWILIO_PHONE_NO")
+
 ####################################
 ##  HAYSTACK CONFIGURATION ##
 ####################################

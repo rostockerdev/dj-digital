@@ -34,6 +34,7 @@ THIRDPARTY_APPS = [
     "ckeditor_uploader",
     "django.contrib.humanize",
     "django.contrib.sitemaps",
+    "phonenumber_field",
 ]
 
 

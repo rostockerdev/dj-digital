@@ -17,6 +17,7 @@ class Command(BaseCommand):
                     email="raselrostock@yahoo.com",
                     dofb="1985-11-12",
                     biography="Irure non non voluptate sint nulla consectetur proident consequat veniam deserunt non. Ut pariatur ea nostrud deserunt commodo reprehenderit non laborum occaecat eiusmod laboris nisi incididunt. Officia fugiat elit veniam dolore. Voluptate pariatur officia aliquip magna sit cupidatat reprehenderit in esse dolor. Cillum voluptate est qui exercitation magna cillum consectetur adipisicing voluptate proident et velit.",
+                    mobile_no="+8801763012799",
                     pro_pic="jenny.jpg",
                 )
             elif _ == 1:
@@ -27,6 +28,7 @@ class Command(BaseCommand):
                     email="instructortwo@yahoo.com",
                     dofb="1990-10-10",
                     biography="Excepteur incididunt ea aliqua ad ipsum ad cupidatat nulla. Tempor quis esse occaecat voluptate do incididunt dolor et occaecat ea nisi eu anim nostrud. Mollit non reprehenderit ipsum Lorem. Exercitation incididunt consectetur eu Lorem do esse elit dolor elit veniam nulla sunt.",
+                    mobile_no="+8801763012799",
                     pro_pic="jenny.jpg",
                 )
             elif _ == 2:
@@ -37,6 +39,7 @@ class Command(BaseCommand):
                     email="instructorthree@yahoo.com",
                     dofb="1995-01-01",
                     biography="Irure non non voluptate sint nulla consectetur proident consequat veniam deserunt non. Ut pariatur ea nostrud deserunt commodo reprehenderit non laborum occaecat eiusmod laboris nisi incididunt. Officia fugiat elit veniam dolore. Voluptate pariatur officia aliquip magna sit cupidatat reprehenderit in esse dolor. Cillum voluptate est qui exercitation magna cillum consectetur adipisicing voluptate proident et velit.",
+                    mobile_no="+8801763012799",
                     pro_pic="jenny.jpg",
                 )
 
