@@ -27,6 +27,13 @@ DATABASES = {
 ###########################################
 WSGI_APPLICATION = "core.wsgi.application"
 
+####################################
+##  SECURITY CONFIGURATION ##
+####################################
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = False
+
 ###########################################
 #           EMAIL CONFIGURATION           #
 ###########################################

@@ -5,8 +5,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.contrib.sitemaps.views import sitemap
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import include, path
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 
 from accounts import views as user_views
 from core.sitemap import CourseSitemap, InstructorSitemap, StaticViewSitemap
@@ -50,9 +52,7 @@ urlpatterns = [
     ),
     path(
         "password-reset/",
-        auth_views.PasswordResetView.as_view(
-            template_name="accounts/password_reset.html"
-        ),
+        user_views.password_reset_request,
         name="password_reset",
     ),
     path(
@@ -80,6 +80,10 @@ urlpatterns = [
     path("notifications/", include("notifications.urls", namespace="notifications")),
     path("search/", include("search.urls", namespace="search")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
+    path(
+        "favicon.ico",
+        RedirectView.as_view(url=staticfiles_storage.url("favicon/favicon.ico")),
+    ),
 ]
 
 # Error Handler

@@ -155,7 +155,13 @@ SITE_ID = 1
 #        MESSAGE  CONFIGURATION           #
 ###########################################
 
-MESSAGE_TAGS = {messages.ERROR: "danger"}
+MESSAGE_TAGS = {
+    messages.DEBUG: "secondary",
+    messages.INFO: "info",
+    messages.SUCCESS: "success",
+    messages.WARNING: "warning",
+    messages.ERROR: "danger",
+}
 
 
 ####################################
